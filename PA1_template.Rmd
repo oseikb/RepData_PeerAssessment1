@@ -11,17 +11,15 @@ output:
 suppressPackageStartupMessages(library(dplyr))
 unzip("./activity.zip")
 activity <- read.csv("./activity.csv")
-activity$date <- as.Date(activity$date)
+activity$date <- as.Date(activity$date) #convert to date
 activity_g <- group_by(activity, date)
 ```
 
 
 ## What is mean total number of steps taken per day?
 ```{r, echo=TRUE}
-#library(dplyr)
 activity_sum <- summarise(activity_g, sum_steps = sum(steps, na.rm = TRUE))
 hist(activity_sum$sum_steps)
-#activity_sum
 mean(activity_sum$sum_steps)
 median(activity_sum$sum_steps)
 ```
@@ -29,7 +27,6 @@ median(activity_sum$sum_steps)
 
 ## What is the average daily activity pattern?
 ```{r, echo=TRUE}
-#library(dplyr)
 activity_g2 <- group_by(activity, interval)
 activity_mean <- summarise(activity_g2, mean_steps = mean(steps, na.rm = TRUE))
 plot(activity_mean, type = "l")

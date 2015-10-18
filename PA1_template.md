@@ -14,7 +14,7 @@ suppressPackageStartupMessages(library(dplyr))
 ```r
 unzip("./activity.zip")
 activity <- read.csv("./activity.csv")
-activity$date <- as.Date(activity$date)
+activity$date <- as.Date(activity$date) #convert to date
 activity_g <- group_by(activity, date)
 ```
 
@@ -22,7 +22,6 @@ activity_g <- group_by(activity, date)
 ## What is mean total number of steps taken per day?
 
 ```r
-#library(dplyr)
 activity_sum <- summarise(activity_g, sum_steps = sum(steps, na.rm = TRUE))
 hist(activity_sum$sum_steps)
 ```
@@ -30,7 +29,6 @@ hist(activity_sum$sum_steps)
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
 ```r
-#activity_sum
 mean(activity_sum$sum_steps)
 ```
 
@@ -50,7 +48,6 @@ median(activity_sum$sum_steps)
 ## What is the average daily activity pattern?
 
 ```r
-#library(dplyr)
 activity_g2 <- group_by(activity, interval)
 activity_mean <- summarise(activity_g2, mean_steps = mean(steps, na.rm = TRUE))
 plot(activity_mean, type = "l")
